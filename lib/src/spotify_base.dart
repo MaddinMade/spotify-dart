@@ -107,30 +107,30 @@ abstract class SpotifyApiBase {
   }
 
   Future<String> _get(String path) {
-    return _getImpl('${_baseUrl}/$path', const {});
+    return _getImpl('$_baseUrl/$path', const {});
   }
 
   Future<String> _post(String path, [String body = '']) {
-    return _postImpl('${_baseUrl}/$path', const {}, body);
+    return _postImpl('$_baseUrl/$path', const {}, body);
   }
 
   Future<String> _delete(String path, [String body = '']) {
-    return _deleteImpl('${_baseUrl}/$path', const {}, body);
+    return _deleteImpl('$_baseUrl/$path', const {}, body);
   }
 
   Future<String> _put(String path, [String body = '']) {
-    return _putImpl('${_baseUrl}/$path', const {}, body);
+    return _putImpl('$_baseUrl/$path', const {}, body);
   }
 
   Future<String> _getImpl(String url, Map<String, String> headers) async {
     return await _requestWrapper(
-        () async => await (await _client).get(url, headers: headers));
+        () async => await (await _client).get(Uri.parse(url), headers: headers));
   }
 
   Future<String> _postImpl(
       String url, Map<String, String> headers, dynamic body) async {
     return await _requestWrapper(() async =>
-        await (await _client).post(url, headers: headers, body: body));
+        await (await _client).post(Uri.parse(url), headers: headers, body: body));
   }
 
   Future<String> _deleteImpl(
@@ -147,7 +147,7 @@ abstract class SpotifyApiBase {
   Future<String> _putImpl(
       String url, Map<String, String> headers, dynamic body) async {
     return await _requestWrapper(() async =>
-        await (await _client).put(url, headers: headers, body: body));
+        await (await _client).put(Uri.parse(url), headers: headers, body: body));
   }
 
   Future<String> _requestWrapper(Future<http.Response> Function() request,

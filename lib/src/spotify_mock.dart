@@ -54,7 +54,7 @@ class MockClient implements oauth2.Client {
   }
 
   @override
-  Future<http.Response> delete(url, {Map<String, String> headers}) {
+  Future<http.Response> delete(url, {Object body, Encoding encoding, Map<String, String> headers}) {
     throw 'Not implemented';
   }
 
@@ -64,7 +64,7 @@ class MockClient implements oauth2.Client {
     if (err != null) {
       return createErrorResponse(err);
     }
-    return createSuccessResponse(_readPath(url));
+    return createSuccessResponse(_readPath(url.toString()));
   }
 
   @override
@@ -85,7 +85,7 @@ class MockClient implements oauth2.Client {
     if (err != null) {
       return createErrorResponse(err);
     }
-    return createSuccessResponse(_readPath(url));
+    return createSuccessResponse(_readPath(url.toString()));
   }
 
   @override
